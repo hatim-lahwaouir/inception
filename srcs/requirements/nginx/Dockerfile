@@ -1,11 +1,12 @@
 FROM alpine
 
 
-# RUN apt -y update
-# RUN apt -y install nginx
 
-RUN apk add nginx
+COPY --chmod=111 tools/setup.sh /scripts/
+COPY --chmod=111 conf/nginx_conf.sh /scripts/
 
-ENTRYPOINT ["nginx"]
+RUN /scripts/setup.sh
 
-CMD ["-g daemon off;"]
+
+
+ENTRYPOINT ["/scripts/nginx_conf.sh"]
