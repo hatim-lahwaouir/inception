@@ -1,5 +1,7 @@
 #!/bin/sh
 
+
+
 apk update
 apk add php php-fpm php-openssl php-phar 
 
@@ -30,6 +32,4 @@ pm.max_spare_servers = 3
 
 mkdir /app
 cd /app
-
-
-
+wp core download
