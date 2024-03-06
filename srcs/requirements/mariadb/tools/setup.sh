@@ -3,34 +3,15 @@
 
 # exporting env variabls
 
-export $(cat .env | tr '\n' ' ')
-
 apt update -y
-
 apt -y install mariadb-server
-
+#sed -i "s/127.0.0.1/0.0.0.0/g"  /etc/mysql/mariadb.conf.d/50-server.cnf
 echo """
-[client-server]
-port = 3306
+[mysqld]
 
-# Import all .cnf files from configuration directory
-!includedir /etc/mysql/conf.d/
-!includedir /etc/mysql/mariadb.conf.d/
+pid-file                = /run/mysqld/mysqld.pid
+basedir                 = /usr
+datadir                 = /var/lib/mysql
 
-""" > /etc/mysql/mariadb.cnf
-
-service mariadb start
-
-sleep 2
-mariadb 
-<< EOF
-CREATE USER "${User}"@'%' IDENTIFIED BY "${Password}";
-CREATE DATABASE $DB_Name;
-GRANT ALL PRIVILEGES ON ${DB_Name}.* TO "${User}"@'%';
-exit
-EOF
-
-
-service mariadb stop
-
-
+bind-address            = 0.0.0.0
+""" > /etc/mysql/mariadb.conf.d/50-server.cnf

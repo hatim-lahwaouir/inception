@@ -1,13 +1,14 @@
 #!/bin/sh
 
-# exporting env variabls
 
-export $(cat .env | tr '\n' ' ')
-
+sleep 5
 cd /app
 
-wp core config --dbhost=localhost:3306 --dbname=$DB_NAME --dbuser=$User --dbpass=$Password
 
-wp core install --url=$DN --title="$WB_TITLE" --admin_name=$ADMINE_NAME --admin_password="${ADMINE_PASS}" --admin_email=$ADMINE_EMAIL
+wp config create --dbhost=mariadb:3306 --dbname=$DB_Name --dbuser=$User --dbpass=$Password
+
+
+wp core install --url="$URL" --title="Your Blog Title" --admin_name="$ADMINE_NAME" --admin_password="$ADMINE_PASS" --admin_email="$ADMINE_EMAIL"
+
 
 exec php-fpm82 --nodaemonize

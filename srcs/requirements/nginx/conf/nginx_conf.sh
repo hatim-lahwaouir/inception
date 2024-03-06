@@ -1,8 +1,8 @@
 #!/bin/sh
 
-mkdir /app
+mkdir /acab
 
-echo "<h1> hello </h1>" > /app/index.html
+echo "<h1> hello </h1>" > /acab/index.html
 
 
 echo """

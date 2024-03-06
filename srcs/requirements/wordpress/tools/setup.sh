@@ -3,8 +3,7 @@
 
 
 apk update
-apk add php php-fpm php-openssl php-phar 
-
+apk add php php-fpm php-openssl php-phar php-mysqli php-mysqlnd php-mbstring
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar

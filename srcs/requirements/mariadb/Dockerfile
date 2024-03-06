@@ -1,8 +1,10 @@
 FROM debian
 
 COPY --chmod=111 tools/setup.sh /scripts/
-COPY --chmod=444 .env /scripts/
+COPY --chmod=666 .env /scripts/
+COPY --chmod=111 conf/conf.sh /scripts/
 
+EXPOSE 3306
 RUN /scripts/setup.sh
 
-ENTRYPOINT ["mysqld_safe"]
+ENTRYPOINT ["/scripts/conf.sh"]

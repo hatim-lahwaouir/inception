@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx/
+    ports:
+      - "443:443"
+
+
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    env_file:
+      - .env
+
+
+
+
+  wordpress:
+    build: ./requirements/wordpress/
+   
+    restart: on-failure:10 
+    container_name: wordpress
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+
