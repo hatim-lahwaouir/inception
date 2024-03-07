@@ -1,9 +1,11 @@
-version: "3.5"
+version: "3"
 
 services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx/
+    volumes:
+      - vol:/app
     ports:
       - "443:443"
 
@@ -19,11 +21,13 @@ services:
 
   wordpress:
     build: ./requirements/wordpress/
-   
-    restart: on-failure:10 
+    volumes:
+      - vol:/app
     container_name: wordpress
     env_file:
       - .env
     depends_on:
       - mariadb
 
+volumes:
+  vol:

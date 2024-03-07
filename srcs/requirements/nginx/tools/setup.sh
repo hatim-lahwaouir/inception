@@ -16,6 +16,9 @@ CRT=crt.crt
 
 
 mkdir -p $CRT_DIR $PRIV_KEY_DIR $CSR_DIR
+mkdir -p /app
+chown -R nginx:www-data /app
+chmod -R 755 /app
 
 
 
@@ -30,3 +33,30 @@ openssl req -key "${PRIV_KEY_DIR}/${PRIVKEY}" -new -out "${CSR_DIR}/${CRS}" -sub
 echo "Signing the certificate"
 
 openssl x509 -signkey "${PRIV_KEY_DIR}/${PRIVKEY}" -in "${CSR_DIR}/${CRS}" -req -days 365 -out "${CRT_DIR}/${CRT}"
+
+
+
+echo '''
+
+server
+{
+	listen 443 ssl;
+	ssl_certificate /TLS/CRT/crt.crt;
+    	ssl_certificate_key /TLS/PRIV_KEY/private.key;
+	root /app;
+
+	index index.php index.html;
+
+    	location / {
+		try_files $uri $uri/ /index.php?$args;   
+	}
+	location ~ \.php$ {
+        	include fastcgi.conf;
+        	fastcgi_pass wordpress:9000;
+    	}
+
+}
+
+
+''' > /etc/nginx/http.d/default.conf
+
