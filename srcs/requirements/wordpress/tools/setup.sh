@@ -29,4 +29,3 @@ pm.max_spare_servers = 3
 mkdir -p /app
 cd /app
 wp core download
-
