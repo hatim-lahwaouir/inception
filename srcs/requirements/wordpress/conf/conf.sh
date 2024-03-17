@@ -1,23 +1,34 @@
 #!/bin/sh
 
 
-sleep 5
 cd /app
-
 
 
 
 create_config_file()
 {	
-	if [ -f /app/wp-config.php ]; then
-		rm -rf wp-config.php
+	
+	nc -vz mariadb 3306
+	
+	while [ $? -ne 0 ]
+		do
+			sleep 1
+			nc -vz mariadb 3306
+		done
+
+	sleep 3
+
+	if [ ! -f /app/wp-config.php ]; then
+		wp config create --dbhost=mariadb:3306 --dbname=$DB_Name --dbuser=$User --dbpass=$Password --skip-check
 	fi
-	wp config create --dbhost=mariadb:3306 --dbname=$DB_Name --dbuser=$User --dbpass=$Password
+	
+
+
+	wp core install --url="$URL" --title="Your Block" --admin_name="$ADMINE_NAME" --admin_password="$ADMINE_PASS" --admin_email="$ADMINE_EMAIL"
+	wp user create "$User" "$User_email" --role=author --user_pass="$Password"
 }
 
 create_config_file
-
-wp core install --url="$URL" --title="Your Block" --admin_name="$ADMINE_NAME" --admin_password="$ADMINE_PASS" --admin_email="$ADMINE_EMAIL"
 
 
 

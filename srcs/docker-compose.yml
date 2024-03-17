@@ -5,29 +5,49 @@ services:
     container_name: nginx
     build: ./requirements/nginx/
     volumes:
-      - vol:/app
+      - vol-wp:/app
     ports:
       - "443:443"
-
+    networks:
+      - netw
 
   mariadb:
     build: ./requirements/mariadb/
     container_name: mariadb
+    volumes:
+      - vol-db:/var/lib/mysql
     env_file:
       - .env
-
+    networks:
+      - netw
 
 
 
   wordpress:
     build: ./requirements/wordpress/
     volumes:
-      - vol:/app
+      - vol-wp:/app
     container_name: wordpress
     env_file:
       - .env
     depends_on:
       - mariadb
-
+    networks:
+      - netw
 volumes:
-  vol:
+  vol-wp:
+    driver_opts:
+      type: none
+      device: /home/hlahwaou/data/wp
+      o: bind
+
+
+  vol-db:
+    driver_opts:
+      type: none
+      device: /home/hlahwaou/data/db
+      o: bind
+
+
+networks:
+  netw:

@@ -22,7 +22,7 @@ pm.max_children = 5
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
-;listen.allowed_clients = nginx
+
 """ > /etc/php82/php-fpm.d/www.conf
 
 

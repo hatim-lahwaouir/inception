@@ -45,18 +45,17 @@ server
     	ssl_certificate_key /TLS/PRIV_KEY/private.key;
 	root /app;
 
-	index index.php index.html;
+	index index.php;
 
     	location / {
 		try_files $uri $uri/ /index.php?$args;   
 	}
+	
 	location ~ \.php$ {
         	include fastcgi.conf;
         	fastcgi_pass wordpress:9000;
     	}
 
 }
-
-
 ''' > /etc/nginx/http.d/default.conf
 
