@@ -23,7 +23,8 @@ pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
 
-""" > /etc/php82/php-fpm.d/www.conf
+""" 
+> /etc/php82/php-fpm.d/www.conf
 
 
 mkdir -p /app

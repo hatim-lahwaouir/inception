@@ -2,36 +2,38 @@
 
 
 
+User=hlahwaou
+User_email=hatimh33@gmail.com
+Password=abcabc
+DB_Name=wp
+ADMINE_NAME=hlahwaou_admine
+URL=10.12.100.191
+ADMINE_PASS=abcabc
+ADMINE_EMAIL=hatimh21@gmail.com
 
 
+echo "mariadb start"
 service mariadb start
-serv=mariadb
 
-mariadb_start()
-{
-	while true;
-       	do
-		service $serv status | grep -q Uptime
-		if [ $? -eq 0 ]; then
-			break
-		fi
-		sleep 1
-	done
-}
+# while true;
+# 	do
+# 	service mariadb status | grep -q Uptime
+# 	if [ $? -eq 0 ]; then
+# 		break
+# 	fi
+# 	sleep 1
+# done
 
 
-mariadb_start
-sleep 1
+sleep 3
 
 mariadb -uroot << EOF
-DROP USER IF EXISTS $User;
-CREATE USER "$User"@'%' IDENTIFIED BY "${Password}";
-DROP DATABASE IF EXISTS $DB_Name;
-CREATE DATABASE $DB_Name;
+CREATE USER IF NOT EXISTS "$User"@'%' IDENTIFIED BY "${Password}";
+CREATE DATABASE IF NOT EXISTS $DB_Name;
 GRANT ALL PRIVILEGES ON $DB_Name.* TO "${User}"@'%';
 exit
 EOF
 
 service mariadb stop
 
-exec mysqld_safe
+mysqld_safe

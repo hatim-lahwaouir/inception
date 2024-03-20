@@ -1,8 +1,11 @@
 version: "3"
 
 services:
+  
   nginx:
+    image: nginx
     container_name: nginx
+    restart: always
     build: ./requirements/nginx/
     volumes:
       - vol-wp:/app
@@ -12,8 +15,10 @@ services:
       - netw
 
   mariadb:
-    build: ./requirements/mariadb/
+    image: mariadb
     container_name: mariadb
+    restart: always
+    build: ./requirements/mariadb/
     volumes:
       - vol-db:/var/lib/mysql
     env_file:
@@ -24,6 +29,8 @@ services:
 
 
   wordpress:
+    image: wordpress
+    restart: always
     build: ./requirements/wordpress/
     volumes:
       - vol-wp:/app
@@ -34,20 +41,22 @@ services:
       - mariadb
     networks:
       - netw
+
+
 volumes:
   vol-wp:
+    driver: local
     driver_opts:
-      type: none
-      device: /home/hlahwaou/data/wp
+      type: bind
+      device: /home/hlahwaou/data/wp/
       o: bind
-
 
   vol-db:
+    driver: local
     driver_opts:
-      type: none
-      device: /home/hlahwaou/data/db
+      type: bind
+      device: /home/hlahwaou/data/db/
       o: bind
-
 
 networks:
   netw:

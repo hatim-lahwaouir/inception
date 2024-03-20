@@ -42,14 +42,13 @@ server
 {
 	listen 443 ssl;
 	ssl_certificate /TLS/CRT/crt.crt;
-    	ssl_certificate_key /TLS/PRIV_KEY/private.key;
+    ssl_certificate_key /TLS/PRIV_KEY/private.key;
+	ssl_protocols TLSv1.3;
+
 	root /app;
 
 	index index.php;
 
-    	location / {
-		try_files $uri $uri/ /index.php?$args;   
-	}
 	
 	location ~ \.php$ {
         	include fastcgi.conf;
@@ -58,4 +57,3 @@ server
 
 }
 ''' > /etc/nginx/http.d/default.conf
-

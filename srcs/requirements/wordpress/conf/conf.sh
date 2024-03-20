@@ -13,7 +13,7 @@ create_config_file()
 	while [ $? -ne 0 ]
 		do
 			sleep 1
-			nc -vz mariadb 3306
+			nc -z mariadb 3306 > /dev/null
 		done
 
 	sleep 3
