@@ -19,13 +19,15 @@ create_config_file()
 	sleep 3
 
 	if [ ! -f /app/wp-config.php ]; then
-		wp config create --dbhost=mariadb:3306 --dbname=$DB_Name --dbuser=$User --dbpass=$Password --skip-check
+		wp config create --dbhost=mariadb:3306 --dbname=$DB_Name --dbuser=$User --dbpass=$Password
 	fi
 	
 
 
 	wp core install --url="$URL" --title="Your Block" --admin_name="$ADMINE_NAME" --admin_password="$ADMINE_PASS" --admin_email="$ADMINE_EMAIL"
-	wp user create "$User" "$User_email" --role=author --user_pass="$Password"
+	if ! wp user list --field=user_login | grep -q "$User"; then
+		wp user create "$User" "$User_email" --role=author --user_pass="$Password"
+	fi
 }
 
 create_config_file
@@ -33,4 +35,4 @@ create_config_file
 
 
 
-exec php-fpm82 --nodaemonize
+exec php-fpm81 --nodaemonize

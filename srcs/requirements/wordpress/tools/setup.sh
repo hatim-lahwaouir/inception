@@ -3,7 +3,7 @@
 
 
 apk update
-apk add php php-fpm php-openssl php-phar php-mysqli php-mysqlnd php-mbstring
+apk add php81 php81-fpm php81-openssl php81-phar php81-mysqli php81-mysqlnd php81-mbstring
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar
@@ -23,8 +23,7 @@ pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
 
-""" 
-> /etc/php82/php-fpm.d/www.conf
+""" > /etc/php81/php-fpm.d/www.conf
 
 
 mkdir -p /app

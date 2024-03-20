@@ -15,17 +15,17 @@ ADMINE_EMAIL=hatimh21@gmail.com
 echo "mariadb start"
 service mariadb start
 
-# while true;
-# 	do
-# 	service mariadb status | grep -q Uptime
-# 	if [ $? -eq 0 ]; then
-# 		break
-# 	fi
-# 	sleep 1
-# done
+while true;
+	do
+	service mariadb status | grep -q Uptime
+	if [ $? -eq 0 ]; then
+		break
+	fi
+	sleep 1
+done
 
+sleep 2
 
-sleep 3
 
 mariadb -uroot << EOF
 CREATE USER IF NOT EXISTS "$User"@'%' IDENTIFIED BY "${Password}";
