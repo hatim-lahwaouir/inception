@@ -1,4 +1,3 @@
-version: "3"
 
 services:
   
@@ -47,6 +46,7 @@ services:
 
 volumes:
   vol-wp:
+    name: wp_vol
     driver: local
     driver_opts:
       type: bind
@@ -54,6 +54,7 @@ volumes:
       o: bind
 
   vol-db:
+    name: db_vol
     driver: local
     driver_opts:
       type: bind

@@ -12,5 +12,5 @@ echo """
 user = root
 port = 3306
 datadir = /var/lib/mysql
-bind-address = 0.0.0.0
+bind-address = mariadb
 """ > /etc/mysql/mariadb.conf.d/50-server.cnf

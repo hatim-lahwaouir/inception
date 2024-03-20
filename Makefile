@@ -1,5 +1,9 @@
 all: up
 
+User=hlahwaou
+
+
+.PHONY = down clean stop up status
 
 
 up:
@@ -14,6 +18,10 @@ stop:
 down:
 	docker compose -f ./srcs/docker-compose.yml down
 
+clean: down
+	sudo rm -rf /home/$(User)/data/wp/*
+	sudo rm -rf /home/$(User)/dat/db/*
+	
 
 status:
 	docker ps

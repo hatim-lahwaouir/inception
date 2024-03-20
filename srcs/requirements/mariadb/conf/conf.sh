@@ -2,15 +2,6 @@
 
 
 
-User=hlahwaou
-User_email=hatimh33@gmail.com
-Password=abcabc
-DB_Name=wp
-ADMINE_NAME=hlahwaou_admine
-URL=10.12.100.191
-ADMINE_PASS=abcabc
-ADMINE_EMAIL=hatimh21@gmail.com
-
 
 echo "mariadb start"
 service mariadb start
