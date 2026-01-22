@@ -50,7 +50,7 @@ volumes:
     driver: local
     driver_opts:
       type: bind
-      device: /home/hlahwaou/data/wp/
+      device: /root/data/wp/
       o: bind
 
   vol-db:
@@ -58,7 +58,7 @@ volumes:
     driver: local
     driver_opts:
       type: bind
-      device: /home/hlahwaou/data/db/
+      device: /root/data/db/
       o: bind
 
 networks:

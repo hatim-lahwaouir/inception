@@ -3,7 +3,18 @@
 
 
 apk update
-apk add php81 php81-fpm php81-openssl php81-phar php81-mysqli php81-mysqlnd php81-mbstring
+apk add \
+  php81 \
+  php81-cli \
+  php81-fpm \
+  php81-openssl \
+  php81-phar \
+  php81-mysqli \
+  php81-mysqlnd \
+  php81-mbstring \
+  php81-curl \
+  php81-zip
+
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 chmod +x wp-cli.phar
@@ -28,4 +39,4 @@ pm.max_spare_servers = 3
 
 mkdir -p /app
 cd /app
-wp core download
+php -d memory_limit=256M /usr/local/bin/wp core download
